@@ -19,9 +19,6 @@
   .cell span { font-size:11px; }
   .legend { font-size:12px; color:var(--muted); margin:6px 0 4px; }
   h2 { font-size:16px; margin:20px 0 6px; padding-top:12px; border-top:1px solid var(--line); }
-  .picked div { margin:3px 0; }
-  .num { font-weight:700; margin-right:6px; }
-  .tag { color:var(--muted); font-size:11px; margin-right:6px; }
   .bar { display:flex; gap:8px; align-items:center; margin-top:14px; flex-wrap:wrap; }
   button.act { border:1px solid var(--line); background:var(--soft); border-radius:8px; padding:7px 12px; font-size:14px; color:var(--fg); }
   label.only { font-size:14px; display:flex; align-items:center; gap:6px; }
@@ -45,8 +42,6 @@
   <div class="ref" id="ref"></div>
   <div class="grid" id="grid"></div>
   <div class="legend">格內為報號人數　紅＝勾高　藍＝勾低　紫＝高低都有（2人以上深色）</div>
-  <h2>勾選會員報號</h2>
-  <div class="picked" id="picked"></div>
   <div class="bar">
     <label class="only"><input type="checkbox" id="only"> 只看已勾選</label>
     <button class="act" id="clear">清除全部勾選</button>
@@ -96,31 +91,18 @@ function render() {
     const mark = marks[keyOf(s.name, m.member)];
     for (const n of m.numbers) {
       counts[n] = (counts[n] || 0) + 1;
-      if (mark) (ticked[n] = ticked[n] || []).push({ member: m.member, source: s.name, mark });
+      if (mark) (ticked[n] = ticked[n] || []).push(mark);
     }
   }
   const grid = document.getElementById("grid");
   grid.replaceChildren();
   for (let n = 1; n <= 39; n++) {
-    const t = ticked[n] || [], kinds = new Set(t.map(x => x.mark));
+    const t = ticked[n] || [], kinds = new Set(t);
     const kind = kinds.size === 2 ? "both" : [...kinds][0];
     let bg = counts[n] ? C.reported : C.empty, fg = counts[n] ? "#222" : "#bbb";
     if (kind) { const pair = C.cell[kind]; bg = t.length >= 2 ? pair[1] : pair[0]; fg = t.length >= 2 ? "#fff" : "#222"; }
     grid.append(el("div", { class: "cell", style: `background:${bg};color:${fg}` },
       el("b", {}, pad(n)), el("span", {}, counts[n] ? counts[n] + "人" : "－")));
-  }
-
-  const picked = document.getElementById("picked");
-  picked.replaceChildren();
-  const numbers = Object.keys(ticked).map(Number).sort((a, b) => a - b);
-  if (!numbers.length) picked.append(el("div", { class: "empty" }, "還沒有勾選的會員報號"));
-  for (const n of numbers) {
-    const line = el("div", {}, el("span", { class: "num" }, pad(n)));
-    for (const t of ticked[n]) {
-      line.append(el("span", { style: `color:${C.id[t.mark]};font-weight:700` }, t.member),
-                  el("span", { class: "tag" }, "(" + (t.source === "Facebook" ? "FB" : "樂") + ")"));
-    }
-    picked.append(line);
   }
 
   const only = document.getElementById("only").checked;
