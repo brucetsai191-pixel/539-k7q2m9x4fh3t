@@ -61,7 +61,8 @@
   .who .name { font-weight:600; word-break:break-all; }
   .who .nums { font-size:13px; color:#444; display:flex; gap:3px; flex-wrap:wrap; }
   .who .num { padding:0 4px; border-radius:4px; }
-  .stat { flex:none; text-align:right; font-size:12px; color:var(--muted); }
+  .stat { font-size:12px; color:var(--muted); display:flex; flex-wrap:wrap; column-gap:10px; }
+  .stat span { white-space:nowrap; }
   .rec { font-size:12px; color:var(--muted); letter-spacing:1px; }
   .void { color:#b26a00; }
   .empty { color:var(--muted); font-size:14px; padding:6px 0; }
@@ -213,18 +214,19 @@ function render() {
             el("div", { class: "nums" }, ...m.numbers.map(n => el("span", {
               class: "num" + (bet.includes(n) ? " mine" : ""),
               style: mark ? tint[n] : "" }, pad(n)))),
-          el("div", { class: "rec" }, "紀錄 " + m.record)),
-        el("div", { class: "stat" }, "近" + DATA.recent + "期", el("br"), rate(m.hits, m.of),
-          // 近100期 only when it holds more reported issues than 近10期 (else 資料不足: nothing to compare)
-          ...(DATA.long && m.of_long > m.of ? [el("br"), el("span", { class: "long" }, "近" + DATA.long + "期"),
-                                               el("br"), el("span", { class: "long" }, rate(m.hits_long, m.of_long))] : []),
-          ...(m.luck ? [el("br"), el("span", { class: "luck" }, "贏" + m.luck[0] + "／輸" + m.luck[1])] : []),
-          ...(m.ticks && m.ticks[0] ? [el("br"), el("span", { class: "acc hi" }, "高中" + m.ticks[1] + "／" + m.ticks[0])] : []),
-          ...(m.ticks && m.ticks[2] ? [el("br"), el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : []))));
+          el("div", { class: "rec" }, "紀錄 " + m.record),
+          // one wrapping line under the record (a right-hand column squeezed the name on phones)
+          el("div", { class: "stat" },
+            el("span", {}, "近" + DATA.recent + "期 " + rate(m.hits, m.of)),
+            // 近100期 only when it holds more reported issues than 近10期 (else 資料不足: nothing to compare)
+            ...(DATA.long && m.of_long > m.of ? [el("span", { class: "long" }, "近" + DATA.long + "期 " + rate(m.hits_long, m.of_long))] : []),
+            ...(m.luck ? [el("span", { class: "luck" }, "贏" + m.luck[0] + "／輸" + m.luck[1])] : []),
+            ...(m.ticks && m.ticks[0] ? [el("span", { class: "acc hi" }, "高中" + m.ticks[1] + "／" + m.ticks[0])] : []),
+            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : [])))));
     }
   }
 }
-function rate(hit, of) { return hit + "／" + of + (of ? "（" + Math.round(100 * hit / of) + "%）" : ""); }
+function rate(hit, of) { return hit + "／" + of + (of ? " " + Math.round(100 * hit / of) + "%" : ""); }
 const ZONES = DATA.zones ? DATA.zones.zones : [[1, 13], [14, 26], [27, 39]];
 const zoneOf = n => ZONES.findIndex(([lo, hi]) => n >= lo && n <= hi) + 1;
 function zoneRatio(numbers) {
