@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>539 開獎結果</title>
+<style>
+  :root { --fg:#222; --muted:#777; --line:#e3e3e3; --soft:#f6f6f6; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#fff; color:var(--fg); font:15px/1.45 -apple-system, "PingFang TC", "Noto Sans TC", sans-serif; }
+  main { max-width:560px; margin:0 auto; padding:14px 16px 40px; }
+  h1 { font-size:19px; margin:0; }
+  h2 { font-size:16px; margin:18px 0 4px; padding-top:10px; border-top:1px solid var(--line); }
+  .sub { color:var(--muted); font-size:13px; }
+  .balls { display:flex; gap:8px; margin:10px 0 6px; }
+  .ball { width:40px; height:40px; border-radius:50%; background:#c62828; color:#fff; font-weight:700;
+          display:flex; align-items:center; justify-content:center; font-size:17px; }
+  .sum { font-size:13px; background:var(--soft); border-radius:6px; padding:6px 8px; }
+  .bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0 4px; }
+  .bar label { font-size:14px; }
+  .act { border:1px solid #cfcfcf; background:#fff; border-radius:8px; padding:7px 12px; font-size:14px; }
+  .act.send { background:#06c755; border-color:#06c755; color:#fff; font-weight:700; }
+  .row { display:flex; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); }
+  .ticks { display:flex; gap:4px; flex:none; }
+  .tick { width:34px; height:34px; border-radius:8px; border:1px solid #cfcfcf; background:#fff; font-size:14px; color:#555; }
+  .tick.on.high { background:#a31515; border-color:#a31515; color:#fff; }
+  .tick.on.low { background:#3f5670; border-color:#3f5670; color:#fff; }
+  .tick.on.mask { background:#555; border-color:#555; color:#fff; }
+  .who { flex:1; min-width:0; }
+  .name { font-weight:600; word-break:break-all; }
+  .got { font-size:12px; font-weight:700; color:#fff; background:#c62828; border-radius:4px; padding:0 5px; margin-left:6px; }
+  .nums { font-size:13px; color:#444; display:flex; gap:3px; flex-wrap:wrap; }
+  .num { padding:0 4px; border-radius:4px; }
+  .num.hit { background:#c62828; color:#fff; font-weight:700; }
+  .void { color:#b26a00; }
+  .rec { font-size:12px; color:var(--muted); letter-spacing:1px; }
+  .stat { font-size:12px; color:var(--muted); display:flex; flex-wrap:wrap; column-gap:10px; }
+  .stat span { white-space:nowrap; }
+  .stat .long { color:#2e7d32; } .stat .luck { color:#0d47a1; font-weight:600; }
+  .stat .acc.hi { color:#a31515; } .stat .acc.lo { color:#3f5670; }
+  .empty { color:var(--muted); font-size:14px; padding:6px 0; }
+  .note { color:var(--muted); font-size:12px; margin-top:16px; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title"></h1>
+  <div class="sub" id="sub"></div>
+  <div class="balls" id="balls"></div>
+  <div class="sum" id="sum"></div>
+  <div class="bar">
+    <label><input type="checkbox" id="hitonly"> 只看有中</label>
+    <label><input type="checkbox" id="only"> 只看已勾選</label>
+    <button class="act send" id="send">傳送預勾到 LINE</button>
+  </div>
+  <div id="lists"></div>
+  <p class="note">紅底號碼＝這期開出的號碼。報中率已含這一期：報中期數／有報號期數（近100期只在比近10期多資料時顯示）。在這裡勾高／低／遮，按「傳送預勾到 LINE」再按送出：今晚 19:30 的勾選頁會照這次的預勾先勾好（這頁有出現的會員，沒勾的會清掉）；預勾不算紀錄，運氣對戰仍以 19:30 勾選頁送出的為準。勾選也存在這支手機上，跟勾選頁共用。紀錄（舊→新）：1 中、0 未中、x 未報、廢 作廢、- 未收集。</p>
+</main>
+<script>
+const DATA = {"issue": "115000276", "draw_date": "2026-11-14", "numbers": [3, 6, 20, 30, 32], "recent": 10, "long": 100, "record_count": 10, "sources": [{"name": "樂透堂", "collected": true, "members": [{"member": "Tim777", "numbers": [6, 19, 39], "void": null, "hit": [6], "hits": 2, "of": 6, "hits_long": 15, "of_long": 42, "record": "x x 0 1 0 0 x x 0 1", "app_mark": null, "luck": [1, 0], "ticks": [1, 1, 0, 0]}, {"member": "he01683640", "numbers": [16, 32, 34], "void": null, "hit": [32], "hits": 5, "of": 9, "hits_long": 26, "of_long": 71, "record": "x 1 1 0 1 0 0 0 1 1", "app_mark": null, "luck": [1, 2], "ticks": [1, 0, 1, 1]}, {"member": "top2021", "numbers": [32, 33, 36], "void": null, "hit": [32], "hits": 2, "of": 2, "hits_long": 2, "of_long": 2, "record": "x x x x x x x 1 x 1", "app_mark": null, "luck": [0, 2], "ticks": null}, {"member": "yoko510958", "numbers": [21, 31, 32], "void": null, "hit": [32], "hits": 3, "of": 3, "hits_long": 3, "of_long": 4, "record": "x x x x x x 1 1 x 1", "app_mark": null, "luck": [0, 4], "ticks": null}, {"member": "一道彩虹", "numbers": [29, 30, 31], "void": null, "hit": [30], "hits": 3, "of": 10, "hits_long": 39, "of_long": 99, "record": "0 0 0 1 1 0 0 0 0 1", "app_mark": null, "luck": [1, 2], "ticks": [0, 0, 1, 0]}, {"member": "大仁哥", "numbers": [20, 29, 31], "void": null, "hit": [20], "hits": 5, "of": 10, "hits_long": 36, "of_long": 100, "record": "0 0 1 0 1 0 1 0 1 1", "app_mark": null, "luck": [1, 3], "ticks": [0, 0, 1, 0]}, {"member": "好運168", "numbers": [4, 20, 31], "void": null, "hit": [20], "hits": 3, "of": 9, "hits_long": 30, "of_long": 98, "record": "x 0 1 0 0 0 1 0 0 1", "app_mark": null, "luck": [0, 4], "ticks": [0, 0, 1, 1]}, {"member": "巽風", "numbers": [29, 32, 34], "void": null, "hit": [32], "hits": 7, "of": 10, "hits_long": 38, "of_long": 99, "record": "0 0 1 1 1 1 1 0 1 1", "app_mark": null, "luck": [2, 4], "ticks": [2, 1, 0, 0]}, {"member": "漂泊1201", "numbers": [21, 28, 30], "void": null, "hit": [30], "hits": 5, "of": 10, "hits_long": 27, "of_long": 73, "record": "0 1 1 1 0 1 0 0 0 1", "app_mark": null, "luck": [2, 1], "ticks": [2, 1, 0, 0]}, {"member": "雲知道", "numbers": [3, 15, 31], "void": null, "hit": [3], "hits": 3, "of": 9, "hits_long": 35, "of_long": 94, "record": "1 0 0 0 1 0 0 0 x 1", "app_mark": null, "luck": [0, 4], "ticks": null}, {"member": "龔喜發財", "numbers": [3, 29, 34], "void": null, "hit": [3], "hits": 5, "of": 9, "hits_long": 32, "of_long": 83, "record": "1 0 0 1 1 x 1 0 0 1", "app_mark": null, "luck": [1, 3], "ticks": [1, 0, 0, 0]}, {"member": "Jenn168", "numbers": [1, 5, 34], "void": null, "hit": [], "hits": 1, "of": 2, "hits_long": 3, "of_long": 6, "record": "x x x x x x x x 1 0", "app_mark": null, "luck": null, "ticks": null}, {"member": "K3km8000", "numbers": [19, 29, 37], "void": null, "hit": [], "hits": 0, "of": 8, "hits_long": 5, "of_long": 19, "record": "0 0 0 0 0 0 x 0 x 0", "app_mark": null, "luck": [3, 1], "ticks": [0, 0, 4, 4]}, {"member": "PUJICO", "numbers": [5, 15, 35], "void": null, "hit": [], "hits": 3, "of": 10, "hits_long": 35, "of_long": 96, "record": "0 1 1 0 0 0 0 1 0 0", "app_mark": null, "luck": [0, 3], "ticks": [1, 0, 1, 0]}, {"member": "QAZ3939889", "numbers": [1, 29, 34], "void": null, "hit": [], "hits": 6, "of": 9, "hits_long": 7, "of_long": 19, "record": "1 0 x 1 1 1 0 1 1 0", "app_mark": null, "luck": [2, 5], "ticks": [1, 1, 1, 1]}, {"member": "evo730304", "numbers": [5, 28, 31], "void": null, "hit": [], "hits": 4, "of": 7, "hits_long": 5, "of_long": 14, "record": "x 1 x x 0 1 1 0 1 0", "app_mark": null, "luck": [2, 1], "ticks": null}, {"member": "frksfrksfrks", "numbers": [5, 15, 39], "void": null, "hit": [], "hits": 2, "of": 10, "hits_long": 32, "of_long": 96, "record": "0 0 0 0 0 1 1 0 0 0", "app_mark": null, "luck": [3, 1], "ticks": [1, 1, 1, 1]}, {"member": "jasson660829", "numbers": [4, 31, 36], "void": null, "hit": [], "hits": 6, "of": 10, "hits_long": 31, "of_long": 81, "record": "1 1 1 1 1 0 0 0 1 0", "app_mark": null, "luck": [1, 3], "ticks": [4, 2, 0, 0]}, {"member": "jj393939", "numbers": [4, 11, 18], "void": null, "hit": [], "hits": 1, "of": 9, "hits_long": 30, "of_long": 88, "record": "0 0 0 0 0 0 1 0 x 0", "app_mark": null, "luck": [2, 2], "ticks": [0, 0, 2, 1]}, {"member": "ku0315ku", "numbers": [12, 16, 18], "void": null, "hit": [], "hits": 4, "of": 10, "hits_long": 42, "of_long": 100, "record": "1 1 1 0 0 1 0 0 0 0", "app_mark": null, "luck": [1, 2], "ticks": [5, 1, 0, 0]}, {"member": "lamuki", "numbers": [4, 10, 21], "void": null, "hit": [], "hits": 3, "of": 10, "hits_long": 32, "of_long": 92, "record": "0 0 1 0 1 0 1 0 0 0", "app_mark": null, "luck": [0, 4], "ticks": [2, 0, 0, 0]}, {"member": "liu00886", "numbers": [15, 18, 28], "void": null, "hit": [], "hits": 0, "of": 2, "hits_long": 0, "of_long": 2, "record": "x x x x x x x 0 x 0", "app_mark": null, "luck": [0, 1], "ticks": null}, {"member": "lotto777", "numbers": [8, 13, 24], "void": null, "hit": [], "hits": 4, "of": 10, "hits_long": 35, "of_long": 98, "record": "1 1 0 0 1 0 1 0 0 0", "app_mark": null, "luck": [0, 3], "ticks": [1, 1, 0, 0]}, {"member": "qwqw5151", "numbers": [21, 22, 23], "void": null, "hit": [], "hits": 5, "of": 10, "hits_long": 14, "of_long": 25, "record": "0 1 1 1 0 0 0 1 1 0", "app_mark": null, "luck": [0, 4], "ticks": [4, 2, 0, 0]}, {"member": "四兩搏千金", "numbers": [1, 22, 28], "void": null, "hit": [], "hits": 2, "of": 10, "hits_long": 40, "of_long": 98, "record": "0 0 1 1 0 0 0 0 0 0", "app_mark": null, "luck": [0, 5], "ticks": [1, 0, 0, 0]}, {"member": "奔馳", "numbers": [15, 18, 21], "void": null, "hit": [], "hits": 2, "of": 10, "hits_long": 34, "of_long": 96, "record": "1 1 0 0 0 0 0 0 0 0", "app_mark": null, "luck": [0, 2], "ticks": [1, 0, 0, 0]}, {"member": "宛真表妹", "numbers": [17, 29, 34], "void": null, "hit": [], "hits": 5, "of": 8, "hits_long": 28, "of_long": 58, "record": "1 1 0 1 x 1 1 0 x 0", "app_mark": null, "luck": [2, 2], "ticks": [2, 2, 0, 0]}, {"member": "山野村夫", "numbers": [13, 14, 15], "void": null, "hit": [], "hits": 3, "of": 9, "hits_long": 34, "of_long": 98, "record": "1 0 1 0 0 x 1 0 0 0", "app_mark": null, "luck": [1, 1], "ticks": [1, 1, 0, 0]}, {"member": "毒毒毒", "numbers": [15, 28, 39], "void": null, "hit": [], "hits": 2, "of": 10, "hits_long": 14, "of_long": 46, "record": "1 0 0 0 0 0 1 0 0 0", "app_mark": null, "luck": [1, 3], "ticks": [1, 0, 0, 0]}, {"member": "流川達", "numbers": [15, 22, 34], "void": null, "hit": [], "hits": 3, "of": 9, "hits_long": 27, "of_long": 75, "record": "0 x 1 0 1 1 0 0 0 0", "app_mark": null, "luck": [1, 3], "ticks": [3, 2, 0, 0]}, {"member": "磨1劍", "numbers": [14, 27, 37], "void": null, "hit": [], "hits": 2, "of": 9, "hits_long": 28, "of_long": 91, "record": "0 1 0 1 0 0 0 x 0 0", "app_mark": null, "luck": [2, 2], "ticks": [0, 0, 1, 1]}, {"member": "紫色風玲草", "numbers": [5, 29, 34], "void": null, "hit": [], "hits": 0, "of": 2, "hits_long": 0, "of_long": 3, "record": "x x x x x x x 0 x 0", "app_mark": null, "luck": null, "ticks": null}, {"member": "薰衣草", "numbers": [1, 7, 28], "void": null, "hit": [], "hits": 4, "of": 7, "hits_long": 28, "of_long": 65, "record": "1 x 0 x 1 1 x 1 0 0", "app_mark": null, "luck": [0, 6], "ticks": [2, 2, 0, 0]}, {"member": "藍寶堅尼", "numbers": [11, 12, 13], "void": null, "hit": [], "hits": 1, "of": 10, "hits_long": 35, "of_long": 89, "record": "0 0 0 0 0 0 0 1 0 0", "app_mark": null, "luck": [0, 2], "ticks": [0, 0, 1, 0]}, {"member": "陳浩維", "numbers": [4, 14, 34], "void": null, "hit": [], "hits": 3, "of": 10, "hits_long": 4, "of_long": 19, "record": "0 1 0 1 0 0 1 0 0 0", "app_mark": null, "luck": [2, 1], "ticks": [1, 0, 0, 0]}]}, {"name": "Facebook", "collected": true, "members": [{"member": "福鑫", "numbers": [6, 27, 35], "void": null, "hit": [6], "hits": 2, "of": 6, "hits_long": 5, "of_long": 14, "record": "x x x 0 0 0 x 1 0 1", "app_mark": null, "luck": [2, 1], "ticks": [0, 0, 3, 2]}, {"member": "陳褚祥", "numbers": [6, 16, 26, 36], "void": null, "hit": [6], "hits": 5, "of": 10, "hits_long": 10, "of_long": 22, "record": "1 1 1 0 0 0 1 0 0 1", "app_mark": null, "luck": [0, 2], "ticks": null}, {"member": "史", "numbers": [12, 22, 32], "void": null, "hit": [32], "hits": 2, "of": 7, "hits_long": 2, "of_long": 17, "record": "x x x 0 0 0 0 0 1 1", "app_mark": null, "luck": [5, 0], "ticks": [0, 0, 5, 5]}, {"member": "曹惠仲", "numbers": [6, 15, 19, 33], "void": null, "hit": [6], "hits": 3, "of": 9, "hits_long": 8, "of_long": 20, "record": "0 1 0 1 0 0 0 0 x 1", "app_mark": null, "luck": [0, 3], "ticks": null}, {"member": "武小妹", "numbers": [6, 12, 27, 34], "void": null, "hit": [6], "hits": 4, "of": 7, "hits_long": 7, "of_long": 18, "record": "1 x x 1 x 0 0 0 1 1", "app_mark": null, "luck": [0, 4], "ticks": [1, 0, 0, 0]}, {"member": "江國家", "numbers": [6, 12], "void": null, "hit": [6], "hits": 5, "of": 10, "hits_long": 8, "of_long": 21, "record": "0 0 1 0 1 1 0 0 1 1", "app_mark": null, "luck": [2, 2], "ticks": [0, 0, 2, 1]}, {"member": "阿德伯", "numbers": [3, 13, 33], "void": null, "hit": [3], "hits": 4, "of": 6, "hits_long": 6, "of_long": 15, "record": "x x x 1 0 0 x 1 1 1", "app_mark": null, "luck": [0, 3], "ticks": null}, {"member": "方琦", "numbers": [12, 34], "void": null, "hit": [], "hits": 0, "of": 7, "hits_long": 2, "of_long": 17, "record": "x x x 0 0 0 0 0 0 0", "app_mark": null, "luck": [4, 0], "ticks": [0, 0, 4, 4]}, {"member": "琦", "numbers": [9, 19, 29], "void": null, "hit": [], "hits": 3, "of": 7, "hits_long": 6, "of_long": 18, "record": "x x x 1 0 0 0 1 1 0", "app_mark": "low", "luck": [0, 4], "ticks": [0, 0, 3, 2]}, {"member": "七龍珠", "numbers": [], "void": "同圖多組報號", "hit": [], "hits": 0, "of": 0, "hits_long": 0, "of_long": 0, "record": "廢 廢 廢 廢 廢 廢 x 廢 廢 廢", "app_mark": null, "luck": null, "ticks": null}, {"member": "天賜彩報", "numbers": [], "void": "同圖多組報號", "hit": [], "hits": 0, "of": 0, "hits_long": 0, "of_long": 0, "record": "廢 廢 廢 廢 廢 廢 x 廢 廢 廢", "app_mark": null, "luck": null, "ticks": null}, {"member": "武參玖", "numbers": [], "void": "同圖多組報號", "hit": [], "hits": 0, "of": 0, "hits_long": 0, "of_long": 0, "record": "廢 廢 廢 廢 廢 廢 廢 廢 廢 廢", "app_mark": null, "luck": null, "ticks": null}, {"member": "殷欣怡", "numbers": [8, 19, 27], "void": null, "hit": [], "hits": 4, "of": 9, "hits_long": 6, "of_long": 18, "record": "1 1 1 1 x 0 0 0 0 0", "app_mark": null, "luck": [0, 2], "ticks": [1, 0, 0, 0]}, {"member": "阿水大哥", "numbers": [5, 25, 35], "void": null, "hit": [], "hits": 5, "of": 8, "hits_long": 8, "of_long": 17, "record": "x x 1 1 1 0 0 1 1 0", "app_mark": null, "luck": [0, 6], "ticks": [2, 1, 0, 0]}, {"member": "麒麒539", "numbers": [], "void": "同圖多組報號", "hit": [], "hits": 0, "of": 0, "hits_long": 0, "of_long": 0, "record": "廢 廢 廢 廢 廢 廢 廢 廢 廢 廢", "app_mark": null, "luck": null, "ticks": null}, {"member": "盈萱五三九", "numbers": [21, 27], "void": null, "hit": [], "hits": 1, "of": 9, "hits_long": 1, "of_long": 9, "record": "x 0 0 1 0 0 0 0 0 0", "app_mark": null, "luck": [3, 2], "ticks": [0, 0, 4, 3]}]}]};
+const C = {"id": {"high": "#a31515", "low": "#3f5670"}, "high": "high", "low": "low", "send": "https://line.me/R/oaMessage/@255klhuy/?"};
+const KEY = "539marks", MASK = "mask";
+const asLow = mark => mark === MASK ? C.low : mark;
+const pad = n => String(n).padStart(2, "0");
+const keyOf = (source, member) => source + "|" + member;
+const rate = (hit, of) => hit + "／" + of + (of ? " " + Math.round(100 * hit / of) + "%" : "");
+let marks = (() => {
+  try { const raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw) || {}; } catch (e) {}
+  const start = {};
+  for (const s of DATA.sources) for (const m of s.members) if (m.app_mark) start[keyOf(s.name, m.member)] = m.app_mark;
+  return start;
+})();
+function saveMarks() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+function el(tag, attrs = {}, ...kids) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "style") node.style.cssText = v; else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
+    else node.setAttribute(k, v);
+  }
+  for (const kid of kids) node.append(kid);
+  return node;
+}
+function render() {
+  document.getElementById("title").textContent = "539 開獎結果 " + DATA.issue;
+  document.getElementById("sub").textContent = "開獎日 " + DATA.draw_date;
+  document.getElementById("balls").replaceChildren(...DATA.numbers.map(n => el("div", { class: "ball" }, pad(n))));
+  const sum = [];
+  for (const s of DATA.sources) {
+    if (!s.collected) { sum.push(el("div", {}, s.name + "：本期未收集")); continue; }
+    const valid = s.members.filter(m => !m.void);
+    const one = valid.filter(m => m.hit.length).length, two = valid.filter(m => m.hit.length >= 2).length;
+    sum.push(el("div", {}, s.name + "：" + valid.length + " 人報號，" + one + " 人有中" + (two ? "（中 2 碼以上 " + two + " 人）" : "")));
+  }
+  document.getElementById("sum").replaceChildren(...sum);
+  const only = document.getElementById("only").checked, hitOnly = document.getElementById("hitonly").checked;
+  const lists = document.getElementById("lists");
+  lists.replaceChildren();
+  for (const s of DATA.sources) {
+    lists.append(el("h2", {}, s.name + "（" + s.members.length + " 人）"));
+    if (!s.collected) { lists.append(el("div", { class: "empty" }, "本期未收集")); continue; }
+    if (!s.members.length) { lists.append(el("div", { class: "empty" }, "本期無會員報號")); continue; }
+    for (const m of s.members) {
+      const k = keyOf(s.name, m.member), mark = marks[k];
+      if ((only && !mark) || (hitOnly && !m.hit.length)) continue;
+      const tick = which => el("button", { class: "tick " + which + (mark === which ? " on" : ""),
+        onclick: () => { if (marks[k] === which) delete marks[k]; else marks[k] = which; saveMarks(); render(); } },
+        which === C.high ? "高" : which === MASK ? "遮" : "低");
+      const hit = new Set(m.hit);
+      lists.append(el("div", { class: "row" },
+        el("div", { class: "ticks" }, tick(C.high), tick(C.low), tick(MASK)),
+        el("div", { class: "who" },
+          el("div", { class: "name", style: mark ? `color:${C.id[asLow(mark)]}` : "" }, m.member,
+            ...(m.hit.length ? [el("span", { class: "got" }, "中" + m.hit.length)] : [])),
+          m.void ? el("div", { class: "nums void" }, "作廢（" + m.void + "）") :
+            el("div", { class: "nums" }, ...m.numbers.map(n => el("span", { class: "num" + (hit.has(n) ? " hit" : "") }, pad(n)))),
+          el("div", { class: "rec" }, "紀錄 " + m.record),
+          el("div", { class: "stat" },
+            el("span", {}, "近" + DATA.recent + "期 " + rate(m.hits, m.of)),
+            ...(m.of_long > m.of ? [el("span", { class: "long" }, "近" + DATA.long + "期 " + rate(m.hits_long, m.of_long))] : []),
+            ...(m.luck ? [el("span", { class: "luck" }, "贏" + m.luck[0] + "／輸" + m.luck[1])] : []),
+            ...(m.ticks && m.ticks[0] ? [el("span", { class: "acc hi" }, "高中" + m.ticks[1] + "／" + m.ticks[0])] : []),
+            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : [])))));
+    }
+  }
+}
+function sendText() {   // luck.parse_preset
+  const lines = ["#預勾 " + DATA.issue];
+  for (const s of DATA.sources) for (const [word, which] of [["高", C.high], ["低", C.low], ["遮", MASK]])
+    lines.push(s.name + word + "：" + s.members.filter(m => marks[keyOf(s.name, m.member)] === which)
+      .map(m => m.member).join("、"));
+  return lines.join("\n");
+}
+document.getElementById("send").addEventListener("click", () => { location.href = C.send + encodeURIComponent(sendText()); });
+document.getElementById("only").addEventListener("change", render);
+document.getElementById("hitonly").addEventListener("change", render);
+render();
+</script>
+</body>
+</html>
