@@ -35,6 +35,7 @@
   .cell.z1 { background-image:linear-gradient(#2e7d32, #2e7d32); }
   .cell.z2 { background-image:linear-gradient(#ef6c00, #ef6c00); }
   .cell.z3 { background-image:linear-gradient(#6a1b9a, #6a1b9a); }
+  .betwho { font-size:13px; color:#333; padding-left:1em; overflow-wrap:anywhere; }
   .zones { font-size:13px; margin:6px 0 2px; padding:6px 8px; background:var(--soft); border-radius:6px; }
   .zones b.z1 { color:#2e7d32; } .zones b.z2 { color:#ef6c00; } .zones b.z3 { color:#6a1b9a; }
   .zones .ratios { letter-spacing:.5px; }
@@ -58,6 +59,7 @@
   .cell.mask { background-color:#bdbdbd !important; color:#8a8a8a !important; cursor:not-allowed; }
   .cell.mask b { text-decoration:line-through; text-decoration-thickness:2px; }
   .who { flex:1; min-width:0; }
+  .name { cursor:pointer; } .name .arrow { color:#999; font-weight:400; }
   .who .name { font-weight:600; word-break:break-all; }
   .who .nums { font-size:13px; color:#444; display:flex; gap:3px; flex-wrap:wrap; }
   .who .num { padding:0 4px; border-radius:4px; }
@@ -105,6 +107,7 @@ function loadMarks() {
 }
 let marks = loadMarks();
 function saveMarks() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+const opened = new Set();   // members whose data is shown (this visit only)
 (() => {   // the 12:00 「#預勾」 (line_message.apply_preset): applied once per phone, later changes stay mine
   const p = DATA.preset;
   try { if (!p || localStorage.getItem("539preset") === p.id) return; } catch (e) { return; }
@@ -135,7 +138,9 @@ function render() {
   document.getElementById("title").textContent = "539 下一期 " + DATA.issue;
   document.getElementById("sub").textContent = "開獎日 " + DATA.draw_date + "　樂透堂" + (DATA.lottohall_final ? "" : "（暫定）")
     + "　" + DATA.facebook_status;
-  document.getElementById("ref").textContent = "下一期參考號碼：" + DATA.reference;
+  const ref = document.getElementById("ref");   // 無成立號碼: no line at all (user rule 2026-11-19)
+  ref.hidden = !DATA.reference || DATA.reference === "無成立號碼";
+  ref.textContent = "下一期參考號碼：" + DATA.reference;
   const prev = new Set(DATA.previous ? DATA.previous.numbers : []);
   if (DATA.previous) document.getElementById("legend").textContent =
     "格內：紅底小數字＝勾高人數　藍底小數字＝勾低人數　後面為總報號人數　格子紅＝勾高　藍＝勾低　紫＝高低都有（2人以上深色）　劃線＝無人報號　粗框＝前一期 " + DATA.previous.issue
@@ -150,6 +155,11 @@ function render() {
       if (mark === C.high) { highNums.add(n); (whoHigh[n] = whoHigh[n] || []).push(m.member); }
       else { lowNums.add(n); (whoLow[n] = whoLow[n] || []).push(m.member); if (mark === MASK) masked.add(n); }
     }
+  }
+  const reportedBy = {};   // number -> [[member, mark]] over both sources
+  for (const s of DATA.sources) for (const m of s.members) {
+    if (m.void) continue;
+    for (const n of m.numbers) (reportedBy[n] = reportedBy[n] || []).push([m.member, marks[keyOf(s.name, m.member)]]);
   }
   const kept = bet.filter(n => n >= 1 && n <= 39 && !masked.has(n));
   if (kept.length !== bet.length) { bet = kept; saveBet(); }   // a number just covered leaves my numbers
@@ -166,6 +176,10 @@ function render() {
       + "（" + bet.length + "／5）" + (bet.length ? "　分區 " + zoneRatio(bet)
         + (bet.length === 5 && DATA.zones && DATA.zones.window
           ? "（近" + DATA.zones.window + "期出現 " + (DATA.zones.counts[zoneRatio(bet)] || 0) + " 次）" : "") : "")),
+    // each of my numbers with the members who reported it (ticked ones in their colors)
+    ...bet.map(n => el("div", { class: "betwho" }, pad(n) + "：", ...(reportedBy[n] || []).flatMap(([name, mark], i) =>
+      [...(i ? ["、"] : []), el("span", { style: mark ? `color:${C.id[asLow(mark)]};font-weight:600` : "" }, name)]),
+      ...(reportedBy[n] ? [] : ["沒有會員報"]))),
     ...(bet.length === 5 && DATA.zones && DATA.zones.window && !DATA.zones.counts[zoneRatio(bet)]
       ? [el("div", { class: "warn" }, "⚠ 分區 " + zoneRatio(bet) + " 近" + DATA.zones.window + "期沒有開出過")] : []),
     ...bet.filter(n => lowNums.has(n) || (highNums.size && !highNums.has(n))).map(n => el("div", { class: "warn" },
@@ -215,13 +229,16 @@ function render() {
       lists.append(el("div", { class: "row" },
         el("div", { class: "ticks" }, tick(C.high), tick(C.low), tick(MASK)),
         el("div", { class: "who" },
-          el("div", { class: "name", style: mark ? `color:${C.id[asLow(mark)]}` : "" }, m.member,
+          // tap the name: his record and statistics open below (user rule 2026-11-19); ticks are not touched
+          el("div", { class: "name", style: mark ? `color:${C.id[asLow(mark)]}` : "",
+                      onclick: () => { if (opened.has(k)) opened.delete(k); else opened.add(k); render(); } },
+            el("span", { class: "arrow" }, opened.has(k) ? "▾ " : "▸ "), m.member,
             ...(m.delete ? [el("span", { class: "deltag" }, "建議低")] : [])),
           m.void ? el("div", { class: "nums void" }, "作廢（" + m.void + "）") :
             el("div", { class: "nums" }, ...m.numbers.map(n => el("span", {
               class: "num" + (bet.includes(n) ? " mine" : ""),
               style: mark ? tint[n] : "" }, pad(n)))),
-          el("div", { class: "rec" }, "紀錄 " + m.record),
+          ...(!opened.has(k) ? [] : [el("div", { class: "rec" }, "紀錄 " + m.record),
           // one wrapping line under the record (a right-hand column squeezed the name on phones)
           el("div", { class: "stat" },
             el("span", {}, "近" + DATA.recent + "期 " + rate(m.hits, m.of)),
@@ -229,7 +246,7 @@ function render() {
             ...(DATA.long && m.of_long > m.of ? [el("span", { class: "long" }, "近" + DATA.long + "期 " + rate(m.hits_long, m.of_long))] : []),
             ...(m.luck ? [el("span", { class: "luck" }, "贏" + m.luck[0] + "／輸" + m.luck[1])] : []),
             ...(m.ticks && m.ticks[0] ? [el("span", { class: "acc hi" }, "高中" + m.ticks[1] + "／" + m.ticks[0])] : []),
-            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : [])))));
+            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : []))]))));
     }
   }
 }
