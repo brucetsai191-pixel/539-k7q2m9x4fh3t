@@ -28,6 +28,7 @@
   .tick.on.low { background:#3f5670; border-color:#3f5670; color:#fff; }
   .tick.on.mask { background:#555; border-color:#555; color:#fff; }
   .who { flex:1; min-width:0; }
+  .name { cursor:pointer; } .name .arrow { color:#999; font-weight:400; }
   .name { font-weight:600; word-break:break-all; }
   .got { font-size:12px; font-weight:700; color:#fff; background:#c62828; border-radius:4px; padding:0 5px; margin-left:6px; }
   .nums { font-size:13px; color:#444; display:flex; gap:3px; flex-wrap:wrap; }
@@ -72,6 +73,7 @@ let marks = (() => {
   return start;
 })();
 function saveMarks() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+const opened = new Set();   // members whose data is shown (this visit only)
 function el(tag, attrs = {}, ...kids) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
@@ -110,17 +112,20 @@ function render() {
       lists.append(el("div", { class: "row" },
         el("div", { class: "ticks" }, tick(C.high), tick(C.low), tick(MASK)),
         el("div", { class: "who" },
-          el("div", { class: "name", style: mark ? `color:${C.id[asLow(mark)]}` : "" }, m.member,
+          // tap the name: his record and statistics open below (user rule 2026-11-19); ticks are not touched
+          el("div", { class: "name", style: mark ? `color:${C.id[asLow(mark)]}` : "",
+                      onclick: () => { if (opened.has(k)) opened.delete(k); else opened.add(k); render(); } },
+            el("span", { class: "arrow" }, opened.has(k) ? "▾ " : "▸ "), m.member,
             ...(m.hit.length ? [el("span", { class: "got" }, "中" + m.hit.length)] : [])),
           m.void ? el("div", { class: "nums void" }, "作廢（" + m.void + "）") :
             el("div", { class: "nums" }, ...m.numbers.map(n => el("span", { class: "num" + (hit.has(n) ? " hit" : "") }, pad(n)))),
-          el("div", { class: "rec" }, "紀錄 " + m.record),
+          ...(!opened.has(k) ? [] : [el("div", { class: "rec" }, "紀錄 " + m.record),
           el("div", { class: "stat" },
             el("span", {}, "近" + DATA.recent + "期 " + rate(m.hits, m.of)),
             ...(m.of_long > m.of ? [el("span", { class: "long" }, "近" + DATA.long + "期 " + rate(m.hits_long, m.of_long))] : []),
             ...(m.luck ? [el("span", { class: "luck" }, "贏" + m.luck[0] + "／輸" + m.luck[1])] : []),
             ...(m.ticks && m.ticks[0] ? [el("span", { class: "acc hi" }, "高中" + m.ticks[1] + "／" + m.ticks[0])] : []),
-            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : [])))));
+            ...(m.ticks && m.ticks[2] ? [el("span", { class: "acc lo" }, "低沒開" + m.ticks[3] + "／" + m.ticks[2])] : []))]))));
     }
   }
 }
